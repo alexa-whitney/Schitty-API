@@ -18,7 +18,7 @@
 
 5. Mongoose schema and model
    - [ ] Define character schema in models folder
-   - [ ] Create character model using schema
+   - [ ] Define quote schema in models folder
 
 6. CRUD operations and controllers
    - [ ] Implement CREATE controller
