@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Quote = require('../models/Quote');
-const Character = require('../models/character');
+const Character = require('../models/Character');
 
 /** Route to get all quotes. */
 router.get('/', async (req, res) => {
