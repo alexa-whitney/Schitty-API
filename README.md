@@ -1,4 +1,4 @@
-<img src="/public/images/schitty.png" alt="Schitty Image" width="650" height="400" style="border-radius: 10px;">
+![Schitty Image](/public/images/schitty.png)
 
 # Schitty API
 
