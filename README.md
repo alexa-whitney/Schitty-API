@@ -1,3 +1,5 @@
+![Schitty Image](/public/images/schitty.jpg)
+
 # Schitty API
 
 Schitty API is a delightful and easy-to-use RESTful API that serves up random quotes and character information from the beloved TV show Schitt's Creek, bringing a touch of wit and humor to your applications.
