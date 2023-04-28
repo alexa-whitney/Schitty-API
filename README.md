@@ -1,4 +1,4 @@
-![Schitty Image](/public/images/schitty.jpg)
+![Schitty Image](/public/images/schitty.png)
 
 # Schitty API
 
