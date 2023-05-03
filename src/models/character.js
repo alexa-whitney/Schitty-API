@@ -1,12 +1,42 @@
-const mongoose = require('mongoose');
+const admin = require('firebase-admin');
+const db = admin.firestore();
 
-const characterSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  imageUrl: String,
-  occupation: String,
-  bio: String
-});
+class Character {
+  constructor(data) {
+    this.id = data.id;
+    this.name = data.name;
+    this.imageUrl = data.imageUrl;
+    this.occupation = data.occupation;
+    this.bio = data.bio;
+  }
 
-const Character = mongoose.model('Character', characterSchema);
+  static async getAll() {
+    const snapshot = await db.collection('characters').get();
+    const characters = snapshot.docs.map((doc) => new Character({ id: doc.id, ...doc.data() }));
+    return characters;
+  }
+
+  static async getById(id) {
+    const doc = await db.collection('characters').doc(id).get();
+    if (!doc.exists) {
+      return null;
+    }
+    return new Character({ id: doc.id, ...doc.data() });
+  }
+
+  async save() {
+    const characterRef = this.id ? db.collection('characters').doc(this.id) : db.collection('characters').doc();
+    const data = { name: this.name, imageUrl: this.imageUrl, occupation: this.occupation, bio: this.bio };
+    await characterRef.set(data, { merge: true });
+    this.id = characterRef.id;
+    return this;
+  }
+
+  async delete() {
+    const characterRef = db.collection('characters').doc(this.id);
+    await characterRef.delete();
+  }
+}
 
 module.exports = Character;
+

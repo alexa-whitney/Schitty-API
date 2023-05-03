@@ -1,28 +1,21 @@
-require('dotenv/config')
-const express = require('express')
-const bodyParser = require('body-parser')
+// Server.js
+const express = require('express');
+const bodyParser = require('body-parser');
 
-// Set App Variable
-const app = express()
+const app = express();
 
-// Use Body Parser
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use((req, res, next) => {
-  const now = new Date().toString()
-  console.log(`Requested ${req.url} at ${now}`)
-  next()
-})
+// Import routes
+const router = require('./routes');
 
-// Database Setup
-require('./config/db-setup.js')
+// Mount routes
+app.use('/api', router);
 
-// Routes
-const router = require('./routes/index.js')
-app.use(router)
+// Start server
+const PORT = process.env.PORT || 8080;
 
-// Start Server
-app.listen(process.env.PORT, () => {
-  console.log(`Example app listening on port ${process.env.PORT}!`)
-})
+app.listen(PORT, () => {
+  console.log(`Server started on port ${PORT}`);
+});
