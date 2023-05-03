@@ -1,0 +1,75 @@
+[
+    {
+      "name": "Johnny Rose",
+      "imageUrl": "https://example.com/johnny_rose.jpg",
+      "occupation": "Former Video Store Magnate",
+      "bio": "Patriarch of the Rose family, Johnny is a loving husband and father who strives to rebuild his family's fortune."
+    },
+    {
+      "name": "Moira Rose",
+      "imageUrl": "https://example.com/moira_rose.jpg",
+      "occupation": "Former Soap Opera Star",
+      "bio": "The eccentric matriarch of the Rose family, Moira is a former soap opera star who has a flair for the dramatic."
+    },
+    {
+      "name": "David Rose",
+      "imageUrl": "https://example.com/david_rose.jpg",
+      "occupation": "Boutique Owner",
+      "bio": "The fashion-conscious and sarcastic son of Johnny and Moira, David eventually finds love and success in Schitt's Creek."
+    },
+    {
+      "name": "Alexis Rose",
+      "imageUrl": "https://example.com/alexis_rose.jpg",
+      "occupation": "Public Relations Specialist",
+      "bio": "The socialite daughter of Johnny and Moira, Alexis learns to become independent and compassionate throughout her time in Schitt's Creek."
+    },
+    {
+      "name": "Stevie Budd",
+      "imageUrl": "https://example.com/stevie_budd.jpg",
+      "occupation": "Motel Manager",
+      "bio": "The sarcastic and deadpan manager of the Rosebud Motel, Stevie becomes close friends with the Rose family."
+    },
+    {
+      "name": "Patrick Brewer",
+      "imageUrl": "https://example.com/patrick_brewer.jpg",
+      "occupation": "Businessman",
+      "bio": "A kind and level-headed businessman, Patrick becomes David's business partner and eventual husband."
+    },
+    {
+      "name": "Roland Schitt",
+      "imageUrl": "https://example.com/roland_schitt.jpg",
+      "occupation": "Mayor of Schitt's Creek",
+      "bio": "The well-meaning but often bumbling mayor of Schitt's Creek, Roland is a devoted husband and father."
+    },
+    {
+      "name": "Jocelyn Schitt",
+      "imageUrl": "https://example.com/jocelyn_schitt.jpg",
+      "occupation": "High School Teacher",
+      "bio": "The compassionate and patient wife of Roland, Jocelyn is a high school teacher and mother."
+    },
+    {
+        "name": "Ted Mullins",
+        "imageUrl": "https://example.com/ted_mullins.jpg",
+        "occupation": "Veterinarian",
+        "bio": "A kind-hearted veterinarian who is passionate about animals and shares a romantic relationship with Alexis throughout the series."
+    },
+    {
+        "name": "Twyla Sands",
+        "imageUrl": "https://example.com/ted_mullins.jpg",
+        "occupation": "Waitress",
+        "bio": "A cheerful and optimistic waitress at the Café Tropical, known for her genuine kindness and warm demeanor."
+    },
+    {
+        "name": "Bob Currie",
+        "imageUrl": "https://example.com/ted_mullins.jpg",
+        "occupation": "Veterinarian",
+        "bio": "The good-natured owner of Bob's Garage, who is always ready to help others and serves as a member of the town council."
+    },
+    {
+        "name": "Veronica 'Ronnie' Sands",
+        "imageUrl": "https://example.com/ted_mullins.jpg",
+        "occupation": "Veterinarian",
+        "bio": "A tough, no-nonsense member of the town council, who is also a skilled contractor and runs her own construction company."
+    }
+  ]
+  
