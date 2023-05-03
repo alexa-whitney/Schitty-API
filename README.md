@@ -19,9 +19,8 @@ Schitty API is a delightful and easy-to-use RESTful API that serves up random qu
 
 - Retrieve random quotes from Schitt's Creek characters
 - Perform CRUD operations on characters and their quotes
-- Interactive frontend showcasing character quotes
 - Comprehensive API documentation
-- Deployed and fully accessible via the internet
+
 
 ## Getting Started
 
