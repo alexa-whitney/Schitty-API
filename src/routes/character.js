@@ -10,6 +10,7 @@ const quotesRef = db.collection('quotes');
 
 /** Route to get all characters. */
 router.get('/', async (req, res) => {
+    console.log('Character route hit!'); // Add this line
     try {
         const characters = await Character.find();
         return res.json({ characters });
@@ -23,9 +24,9 @@ router.get('/', async (req, res) => {
 
 /** Route to get one character by id. */
 router.get('/characters/:characterId', async (req, res) => {
+    console.log(req.params);
     try {
         const characterId = req.params.characterId;
-        console.log(characterId);
         const characterDoc = await db.collection('characters').doc(characterId).get();
 
         if (!characterDoc.exists) {

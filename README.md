@@ -30,7 +30,7 @@ These instructions will help you set up and run the Schitty API on your local ma
 
 - Node.js (v14.x or higher)
 - npm (v6.x or higher)
-- MongoDB Atlas account
+- Firebase account
 - Git
 
 ## Installation
@@ -44,14 +44,11 @@ These instructions will help you set up and run the Schitty API on your local ma
 2. Install dependencies:
     ``` npm install ```
 
-3. Create a `.env` file in the project root and add your MongoDB connection string: 
 
-    ```MONGODB_URI=YOUR_MONGODB_CONNECTION_STRING```
-
-4. Run the development server:
+3. Run the development server:
     ```npm start```
 
-5. Open your browser and navigate to http://localhost:3000 to view the frontend.
+4. Open your browser and navigate to http://localhost:8080 to view.
 
 ### Usage
 
