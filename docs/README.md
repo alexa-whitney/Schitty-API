@@ -87,6 +87,8 @@ To add a new character, make a POST request to /characters with the following re
 ```
 Ensure that you provide the required fields in the request body: name and description. The API will return the newly created character.
 
+![newcharacter](./images/addnewcharacter.png)
+
 #### Update an existing Schitty character
 To update an existing character, make a PUT request to /characters/:characterId with the following request body:
 ```json
@@ -98,20 +100,35 @@ To update an existing character, make a PUT request to /characters/:characterId 
 }
 ```
 
+![updatecharacter](./images/editcharacter.png)
+
+#### Delete a Schitty Character
+To delete an existing character, create a `DELETE` request to /characters/:Id :
+
+The server will return the following message if successful:
+
+```json
+{
+    "message": "Character {name here} successfully deleted",
+}
+```
+
+![deletecharacter](./images/deletecharacter.png)
+
 ### Schitty Quotes
 
 - `GET /quotes`: Get all quotes made by all Schitt's Creek characters.
-- `GET /quotes/:quoteId`: Get a specific Schitty quote by ID.
+- `GET /quotes/:Id`: Get a specific Schitty quote by ID.
 - `POST /quotes`: Add a new Schitty quote.
-- `PUT /quotes/:quoteId`: Update an existing Schitty quote.
-- `DELETE /quotes/:quoteId`: Delete a quote.
+- `PUT /quotes/:Id`: Update an existing Schitty quote.
+- `DELETE /quotes/:Id`: Delete a quote.
 
 ![quotes](./images/quotes.png)
 
 ![quotebyid](./images/quote2.png)
 
 #### Add a new Schitty quote
-To add a new quote, make a `POST` request to `/quotes` with the following request body:
+To add a new quote, create a `POST` request to `/quotes` with the following request body:
 ```json
 {
     "characterName": "Name of the character who says the quote here",
@@ -120,9 +137,10 @@ To add a new quote, make a `POST` request to `/quotes` with the following reques
     "episode": "The episode in which the quote appears goes here"
 }
 ```
+![addnewquote](./images/addnewquote.png)
 
 #### Update a Schitty quote
-To update an existing quote, make a PUT request to /quotes/:quoteId with the following request body:
+To update an existing quote, create a `PUT` request to /quotes/:Id with the following request body:
 ```json
 {
     "characterName": "The updated character name goes here",
@@ -131,3 +149,18 @@ To update an existing quote, make a PUT request to /quotes/:quoteId with the fol
     "episode": "The updated episode number goes here"
 }
 ```
+![updatequote](./images/editquote.png)
+
+#### Delete a Schitty quote
+To delete an existing quote, create a `DELETE` request to /quotes/:Id :
+
+The server will return the following message if successful:
+
+```json
+{
+    "message": "Successfully deleted.",
+    "_id:" : "The quote's ID."
+}
+```
+
+![deletequote](./images/deletequote.png)
