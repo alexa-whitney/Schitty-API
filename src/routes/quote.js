@@ -10,6 +10,7 @@ router.get('/', async (req, res) => {
         const quotesSnapshot = await quotesRef.get();
         const quotes = quotesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         return res.json({ quotes })
+        res.render('index', { quotes });
     } catch (err) {
         console.log(err.message);
         res.status(400).json({ error: err.message });
