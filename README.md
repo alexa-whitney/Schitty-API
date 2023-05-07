@@ -1,4 +1,4 @@
-<img src="./images/schitty.png" alt="Schitty Image" width="650" height="400">
+<img src="./docs/images/schitty.png" alt="Schitty Image" width="650" height="400">
 
 # Schitty API
 
