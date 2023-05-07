@@ -31,7 +31,7 @@ So why wait? Get ready to bring some Schitt to your project, and start integrati
 
 ## Schitty API Documentation
 
-The Schitty API documentation is generated using Docsify and hosted on GitHub Pages. Visit the API Documentation for a comprehensive guide on how to use the API: https://alexa-whitney.github.io/schitty-api/
+The Schitty API documentation is generated using Docsify and hosted on GitHub Pages. Visit the API Documentation for a comprehensive guide on how to use the API: https://alexa-whitney.github.io/Schitty-API/#/
 
 ### Getting Schitty Started
 
