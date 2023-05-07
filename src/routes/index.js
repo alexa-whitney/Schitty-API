@@ -1,7 +1,5 @@
 const express = require('express');
-const admin = require('firebase-admin');
-const serviceAccount = require('../config/schitty-api-firebase-key.json');
-const db = require('../firebase'); // Import the Firebase instance
+const db = require('../firebase');
 
 const characterRoutes = require('./character.js');
 const quoteRoutes = require('./quote.js');
@@ -14,38 +12,32 @@ router.get('/', (req, res) => {
 })
 
 // Characters routes
-router.get('/characters', (req, res) => {
-  db.collection('characters')
-    .get()
-    .then((snapshot) => {
-      const characters = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      res.json(characters);
-    })
-    .catch((error) => {
-      res.status(500).json({ error });
-    });
+router.get('/characters', async (req, res) => {
+    try {
+        const charactersSnapshot = await db.collection('characters').get();
+        const characters = charactersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        return res.json({ characters })
+    } catch (err) {
+        console.log(err.message);
+        res.status(400).json({ error: err.message });
+    }
 });
+
+// Use characterRoutes middleware for character API routes
+router.use('/api/characters', characterRoutes);
 
 // Quotes routes
-router.get('/quotes', (req, res) => {
-  db.collection('quotes')
-    .get()
-    .then((snapshot) => {
-      const quotes = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      res.json(quotes);
-    })
-    .catch((error) => {
-      res.status(500).json({ error });
-    });
+router.get('/quotes', async (req, res) => {
+    try {
+        const quotesSnapshot = await db.collection('quotes').get();
+        const quotes = quotesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        return res.json({ quotes })
+    } catch (err) {
+        console.log(err.message);
+        res.status(400).json({ error: err.message });
+    }
 });
 
+router.use('/api/quotes', quoteRoutes);
+
 module.exports = router;
-
-
-

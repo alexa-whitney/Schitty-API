@@ -1,12 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const Quote = require('../models/Quote');
-const Character = require('../models/Character');
+const db = require('../firebase');
+const quotesRef = db.collection('quotes');
+
 
 /** Route to get all quotes. */
 router.get('/', async (req, res) => {
     try {
-        const quotes = await Quote.find();
+        const quotesSnapshot = await quotesRef.get();
+        const quotes = quotesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         return res.json({ quotes })
     } catch (err) {
         console.log(err.message);
@@ -17,7 +19,8 @@ router.get('/', async (req, res) => {
 /** Route to get all quotes by a specific character. */
 router.get('/character/:characterId', async (req, res) => {
     try {
-        const quotes = await Quote.find({ characterId: req.params.characterId });
+        const quotesSnapshot = await quotesRef.where('characterId', '==', req.params.characterId).get();
+        const quotes = quotesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         return res.json({ quotes });
     } catch (err) {
         console.log(err.message);
@@ -28,9 +31,10 @@ router.get('/character/:characterId', async (req, res) => {
 /** Route to add a new quote. */
 router.post('/', async (req, res) => {
     try {
-        const newQuote = new Quote(req.body);
-        await newQuote.save();
-        res.status(201).json({ quote: newQuote });
+        const newQuote = req.body;
+        const quoteDoc = await quotesRef.add(newQuote);
+        const addedQuote = { id: quoteDoc.id, ...newQuote };
+        res.status(201).json({ quote: addedQuote });
     } catch (err) {
         console.log(err.message);
         res.status(400).json({ error: err.message });
@@ -40,11 +44,19 @@ router.post('/', async (req, res) => {
 /** Route to update an existing quote by id */
 router.put('/:quoteId', async (req, res) => {
     try {
-        const updatedQuote = await Quote.findByIdAndUpdate(req.params.quoteId, req.body, { new: true });
-        if (!updatedQuote) {
+        const quoteId = req.params.quoteId;
+        const updatedQuoteData = req.body;
+        const quoteDocRef = quotesRef.doc(quoteId);
+
+        const quoteDoc = await quoteDocRef.get();
+        if (!quoteDoc.exists) {
             return res.status(404).json({ error: 'Quote not found' });
         }
-        res.json({ quote: updatedQuote});
+
+        await quoteDocRef.update(updatedQuoteData);
+        const updatedQuote = { id: quoteDoc.id, ...updatedQuoteData };
+
+        res.json({ quote: updatedQuote });
     } catch (err) {
         console.log(err.message);
         res.status(400).json({ error: err.message });
@@ -54,15 +66,19 @@ router.put('/:quoteId', async (req, res) => {
 /** Route to delete a quote by id. */
 router.delete('/:quoteId', async (req, res) => {
     try {
-        const quote = await Quote.findById(req.params.quoteId);
+        const quoteId = req.params.quoteId;
+        const quoteDocRef = quotesRef.doc(quoteId);
 
-        if (!quote) {
+        const quoteDoc = await quoteDocRef.get();
+        if (!quoteDoc.exists) {
             return res.status(404).json({ error: 'Quote not found' });
         }
-        await quote.remove();
+
+        await quoteDocRef.delete();
+
         return res.json({
             'message': 'Successfully deleted.',
-            '_id': req.params.quoteId
+            '_id': quoteId
         });
     } catch (err) {
         console.log(err.message);
