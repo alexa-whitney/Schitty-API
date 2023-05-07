@@ -41,7 +41,7 @@ These instructions will help you set up and run the Schitty API on your local ma
 
 - Node.js (v14.x or higher)
 - npm (v6.x or higher)
-- MongoDB Atlas account
+- Google Firebase account
 - Git
 
 ### Schitty Installation
