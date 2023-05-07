@@ -14,11 +14,11 @@ So why wait? Get ready to bring some Schitt to your project, and start integrati
 
 ## Table of Schitty Contents
 
-- [Features](#features)
-- [API Documentation](#api-documentation)
-- [Getting Started](#getting-started)
-- [Installation](#installation)
-- [Usage](#usage)
+- [Features](#schitty-features)
+- [API Documentation](#schitty-api-documentation)
+- [Getting Started](#getting-schitty-started)
+- [Installation](#schitty-installation)
+- [Usage](#schitty-usage)
 
 
 ## Schitty Features
