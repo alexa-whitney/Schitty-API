@@ -7,6 +7,7 @@ class Quote {
     this.text = data.text;
     this.characterId = data.characterId;
     this.episode = data.episode;
+    this.season = data.season;
   }
 
   static async getAll() {
@@ -29,7 +30,7 @@ class Quote {
   }
 
   async save() {
-    const data = { text: this.text, characterId: this.characterId, episode: this.episode };
+    const data = { text: this.text, characterId: this.characterId, episode: this.episode, season: this.season };
     if (this.id) {
       await db.collection('quotes').doc(this.id).set(data, { merge: true });
     } else {

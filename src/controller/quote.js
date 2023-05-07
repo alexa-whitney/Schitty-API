@@ -55,6 +55,7 @@ router.put('/:id', async (req, res) => {
     updatedQuote.text = req.body.text;
     updatedQuote.characterId = req.body.characterId;
     updatedQuote.episode = req.body.episode;
+    updatedQuote.season = req.body.season;
 
     await updatedQuote.save();
     res.json({ quote: updatedQuote });

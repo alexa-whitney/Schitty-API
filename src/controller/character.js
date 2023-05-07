@@ -53,10 +53,17 @@ router.post('/', async (req, res) => {
 /** Route to update an existing character by id. */
 router.put('/:id', async (req, res) => {
     try {
-        const updatedCharacter = await Character.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const updatedCharacter = await Character.getById(req.params.id);
         if (!updatedCharacter) {
             return res.status(404).json({ error: 'Character not found' });
         }
+
+        updatedCharacter.name = req.body.name;
+        updatedCharacter.imageUrl = req.body.imageUrl;
+        updatedCharacter.occupation = req.body.occupation;
+        updatedCharacter.bio = req.body.bio;
+    
+        await updatedCharacter.save();
         res.json({ character: updatedCharacter });
     } catch (err) {
         console.log(err.message);
@@ -68,13 +75,14 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
     try {
         const characterId = req.params.id;
+        const characterName = req.body.name;
         const characterDoc = await charactersRef.doc(characterId).get();
         if (!characterDoc.exists) {
             return res.status(404).json({ error: 'Character not found' });
         }
-    
+
         await charactersRef.doc(characterId).delete();
-        return res.json({ message: `Character ${characterId} successfully deleted` });
+        return res.json({ message: `Character ${characterName} successfully deleted` });
     } catch (err) {
         console.log(err.message);
         res.status(400).json({ error: err.message });
