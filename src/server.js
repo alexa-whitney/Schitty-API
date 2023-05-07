@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const router = require('./controller/index.js');
 const app = express();
 const port = 8080;
 
@@ -12,6 +13,8 @@ const characterRoutes = require('./controller/character');
 const quoteRoutes = require('./controller/quote');
 app.use('/api/characters', characterRoutes);
 app.use('/api/quotes', quoteRoutes);
+app.use('/api', router);
+
 
 // Error handling middleware
 app.use(function (err, req, res, next) {

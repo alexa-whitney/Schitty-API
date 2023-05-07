@@ -11,9 +11,9 @@ router.use('/characters', characterRoutes);
 // Quotes routes
 router.use('/quotes', quoteRoutes);
 
-// Home route
+// API root route
 router.get('/', (req, res) => {
-  res.send('Welcome to the Schitty API!')
+  res.send('Welcome to the Schitty API!');
 });
 
 module.exports = router;
