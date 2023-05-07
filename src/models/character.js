@@ -3,6 +3,7 @@ const db = admin.firestore();
 
 class Character {
   constructor(data) {
+    this.id = data.id;
     this.name = data.name;
     this.imageUrl = data.imageUrl;
     this.occupation = data.occupation;
@@ -11,7 +12,7 @@ class Character {
 
   static async getAll() {
     const snapshot = await db.collection('characters').get();
-    const characters = snapshot.docs.map((doc) => new Character({ ...doc.data(), id: doc.id }));
+    const characters = snapshot.docs.map((doc) => new Character({ id: doc.id, ...doc.data() }));
     return characters;
   }
 
@@ -20,7 +21,7 @@ class Character {
     if (!doc.exists) {
       return null;
     }
-    return new Character({ ...doc.data(), id: doc.id });
+    return new Character({ id: doc.id, ...doc.data() });
   }
 
   async save() {
@@ -38,5 +39,3 @@ class Character {
 }
 
 module.exports = Character;
-
-

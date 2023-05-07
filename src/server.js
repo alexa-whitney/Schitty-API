@@ -1,21 +1,28 @@
-// Server.js
 const express = require('express');
 const bodyParser = require('body-parser');
-
 const app = express();
+const port = 8080;
 
-app.use(bodyParser.json());
+// Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
-// Import routes
-const router = require('./routes');
+// Routes
+const characterRoutes = require('./controller/character');
+const quoteRoutes = require('./controller/quote');
+app.use('/api/characters', characterRoutes);
+app.use('/api/quotes', quoteRoutes);
 
-// Mount routes
-app.use('/api', router);
+// Error handling middleware
+app.use(function (err, req, res, next) {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+});
 
 // Start server
-const PORT = process.env.PORT || 8080;
-
-app.listen(PORT, () => {
-  console.log(`Server started on port ${PORT}`);
+app.listen(port, () => {
+  console.log(`Server started on port ${port}`);
 });
+
+module.exports = app;
+

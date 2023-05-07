@@ -1,62 +1,49 @@
 const admin = require('firebase-admin');
+const db = admin.firestore();
 
-const db = admin.database();
-
-const quoteRef = db.ref('quotes');
-
-const saveQuote = async (quoteData) => {
-  const newQuoteRef = quoteRef.push();
-  await newQuoteRef.set(quoteData);
-  return newQuoteRef.key;
-};
-
-const getAllQuotes = async () => {
-  const quotesSnapshot = await quoteRef.once('value');
-  const quotes = [];
-  quotesSnapshot.forEach((childSnapshot) => {
-    const id = childSnapshot.key;
-    const quote = childSnapshot.val();
-    quote.id = id;
-    quotes.push(quote);
-  });
-  return quotes;
-};
-
-const getQuoteById = async (id) => {
-  const quoteSnapshot = await quoteRef.child(id).once('value');
-  if (!quoteSnapshot.exists()) {
-    throw new Error('Quote not found');
+class Quote {
+  constructor(data) {
+    this.id = data.id;
+    this.text = data.text;
+    this.characterId = data.characterId;
+    this.episode = data.episode;
   }
-  const quote = quoteSnapshot.val();
-  quote.id = id;
-  return quote;
-};
 
-const updateQuote = async (id, quoteData) => {
-  const quoteRefToUpdate = quoteRef.child(id);
-  await quoteRefToUpdate.update(quoteData);
-  const updatedQuoteSnapshot = await quoteRefToUpdate.once('value');
-  const updatedQuote = updatedQuoteSnapshot.val();
-  updatedQuote.id = id;
-  return updatedQuote;
-};
-
-const deleteQuote = async (id) => {
-  const quoteRefToDelete = quoteRef.child(id);
-  const quoteSnapshot = await quoteRefToDelete.once('value');
-  if (!quoteSnapshot.exists()) {
-    throw new Error('Quote not found');
+  static async getAll() {
+    const snapshot = await db.collection('quotes').get();
+    const quotes = [];
+    snapshot.forEach((doc) => {
+      quotes.push(new Quote({ ...doc.data(), id: doc.id }));
+    });
+    return quotes;
   }
-  await quoteRefToDelete.remove();
-  return id;
-};
 
-module.exports = {
-  saveQuote,
-  getAllQuotes,
-  getQuoteById,
-  updateQuote,
-  deleteQuote,
-};
+  static async getById(id) {
+    const doc = await db.collection('quotes').doc(id).get();
+    if (!doc.exists) {
+      return null;
+    }
+    const data = doc.data();
+    data.id = doc.id;
+    return new Quote(data);
+  }
 
+  async save() {
+    const data = { text: this.text, characterId: this.characterId, episode: this.episode };
+    if (this.id) {
+      await db.collection('quotes').doc(this.id).set(data, { merge: true });
+    } else {
+      const quoteRef = await db.collection('quotes').add(data);
+      this.id = quoteRef.id;
+    }
+    return this;
+  }
+
+  async delete() {
+    const quoteRef = db.collection('quotes').doc(this.id);
+    await quoteRef.delete();
+  }
+}
+
+module.exports = Quote;
 

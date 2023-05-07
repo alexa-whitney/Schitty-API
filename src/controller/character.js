@@ -1,18 +1,15 @@
 const express = require('express');
-const router = require('express').Router();
+const router = express.Router();
 const admin = require('firebase-admin');
 const db = require('../firebase');
 const Character = require('../models/Character');
 const charactersRef = db.collection('characters');
-const quotesRef = db.collection('quotes');
-
-
 
 /** Route to get all characters. */
 router.get('/', async (req, res) => {
-    console.log('Character route hit!');
+    console.log('Characters route hit!');
     try {
-        const characters = await Character.find();
+        const characters = await Character.getAll();
         return res.json({ characters });
     } catch (err) {
         console.log(err.message);
@@ -20,14 +17,12 @@ router.get('/', async (req, res) => {
     }
 });
 
-
-
 /** Route to get one character by id. */
-router.get('/:characterId', async (req, res) => {
-    console.log(req.params);
+router.get('/:id', async (req, res) => {
+    console.log('Get character by id route hit!');
     try {
-        const characterId = req.params.characterId;
-        const characterDoc = await db.collection('characters').doc(characterId).get();
+        const characterId = req.params.id;
+        const characterDoc = await charactersRef.doc(characterId).get();
 
         if (!characterDoc.exists) {
             return res.status(404).json({ error: 'Character not found' });
@@ -36,13 +31,12 @@ router.get('/:characterId', async (req, res) => {
         const characterData = characterDoc.data();
         const character = { id: characterDoc.id, ...characterData };
 
-        return res.render('character', { character });
+        return res.json({ character });
     } catch (err) {
         console.log(err.message);
         res.status(400).json({ error: err.message });
     }
 });
-
 
 /** Route to add a new character. */
 router.post('/', async (req, res) => {
@@ -56,11 +50,10 @@ router.post('/', async (req, res) => {
     }
 });
 
-
 /** Route to update an existing character by id. */
-router.put('/:characterId', async (req, res) => {
+router.put('/:id', async (req, res) => {
     try {
-        const updatedCharacter = await Character.findByIdAndUpdate(req.params.characterId, req.body, { new: true });
+        const updatedCharacter = await Character.findByIdAndUpdate(req.params.id, req.body, { new: true });
         if (!updatedCharacter) {
             return res.status(404).json({ error: 'Character not found' });
         }
@@ -71,19 +64,17 @@ router.put('/:characterId', async (req, res) => {
     }
 });
 
-
 /** Route to delete a character by id. */
-router.delete('/:characterId', async (req, res) => {
+router.delete('/:id', async (req, res) => {
     try {
-        const character = await Character.findById(req.params.characterId);
-        if (!character) {
+        const characterId = req.params.id;
+        const characterDoc = await charactersRef.doc(characterId).get();
+        if (!characterDoc.exists) {
             return res.status(404).json({ error: 'Character not found' });
         }
-        await character.remove();
-        return res.json({
-            'message': 'Successfully deleted.',
-            '_id': req.params.characterId
-        });
+    
+        await charactersRef.doc(characterId).delete();
+        return res.json({ message: `Character ${characterId} successfully deleted` });
     } catch (err) {
         console.log(err.message);
         res.status(400).json({ error: err.message });
@@ -91,3 +82,5 @@ router.delete('/:characterId', async (req, res) => {
 });
 
 module.exports = router;
+
+
