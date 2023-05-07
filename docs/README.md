@@ -73,7 +73,7 @@ Refer to the Schitty API Documentation for detailed information on the various S
 
 ![characters](./images/characters.png)
 
-![characterbyid](./images/character-by-id.png)
+![characterbyid](./images/character2.png)
 
 #### Add a new Schitty character
 To add a new character, make a POST request to /characters with the following request body:
@@ -108,7 +108,7 @@ To update an existing character, make a PUT request to /characters/:characterId 
 
 ![quotes](./images/quotes.png)
 
-![quotebyid](./images/quote-by-id.png)
+![quotebyid](./images/quote2.png)
 
 #### Add a new Schitty quote
 To add a new quote, make a `POST` request to `/quotes` with the following request body:
