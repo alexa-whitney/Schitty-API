@@ -9,11 +9,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Routes
+app.use('/api', router);
 const characterRoutes = require('./controller/character');
 const quoteRoutes = require('./controller/quote');
 app.use('/api/characters', characterRoutes);
 app.use('/api/quotes', quoteRoutes);
-app.use('/api', router);
+
 
 
 // Error handling middleware
